@@ -1,13 +1,14 @@
-CREATE DATABASE job_data;
-USE job_data;
+-- CREATE DATABASE job_data;
+-- USE job_data;
 
+DROP TABLE IF EXISTS job_skills_table;
 CREATE TABLE job_skills_table (
   id INT AUTO_INCREMENT PRIMARY KEY,
   job_link VARCHAR(255),
-  job_skills VARCHAR(50)
+  job_skills TEXT
 );
 
-LOAD DATA LOCAL INFILE '/home/ec2-user/.cache/kagglehub/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024/job_skills.csv'
+LOAD DATA LOCAL INFILE 'C:\\Users\\param_sureliya\\.cache\\kagglehub\\datasets\\asaniczka\\1-3m-linkedin-jobs-and-skills-2024\\versions\\2\\job_skills.csv'
 INTO TABLE job_skills_table
 FIELDS TERMINATED BY ','          -- Fields are separated by commas.
 OPTIONALLY ENCLOSED BY '"'        -- Optionally, fields may be enclosed in quotes (important for `job_skills`).
@@ -15,6 +16,7 @@ LINES TERMINATED BY '\n'          -- Rows are separated by newlines.
 IGNORE 1 ROWS                     -- Skip the header row.
 (job_link, job_skills);           -- Map CSV columns to table columns.
 
+DROP TABLE IF EXISTS job_postings_table;
 CREATE TABLE job_postings_table (
     id INT AUTO_INCREMENT PRIMARY KEY,               -- Primary key for the job posting
     job_link VARCHAR(255) NOT NULL,                   -- URL link to the job posting on LinkedIn
@@ -33,7 +35,7 @@ CREATE TABLE job_postings_table (
     job_type VARCHAR(50)                             -- Type of job (e.g., onsite, hybrid)
 );
 
-LOAD DATA LOCAL INFILE '/home/ec2-user/.cache/kagglehub/datasets/asaniczka/1-3m-linkedin-jobs-and-skills-2024/linkedin_job_postings.csv'
+LOAD DATA LOCAL INFILE 'C:\\Users\\param_sureliya\\.cache\\kagglehub\\datasets\\asaniczka\\1-3m-linkedin-jobs-and-skills-2024\\versions\\2\\linkedin_job_postings.csv'
 INTO TABLE job_postings_table
 FIELDS TERMINATED BY ','          -- Fields are separated by commas.
 OPTIONALLY ENCLOSED BY '"'        -- Fields may optionally be enclosed by quotes.
